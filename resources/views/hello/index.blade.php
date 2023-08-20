@@ -1,4 +1,4 @@
-<html>
+{{-- <html>
 
 <head>
     <title>Hello/Index</title>
@@ -17,16 +17,16 @@
     </style>
 </head>
 
-<body>
-    {{-- <div>
+<body> --}}
+{{-- <div>
         <h1>Index</h1>
         <p>This is a sample page with php-template.</p>
         <p><?php echo $msg1; ?></p>
         <p><?php echo date('Y年n月j日'); ?></p>
         <p><?php echo $id; ?></p>
     </div> --}}
-    {{-- <p>{{ $msg2 }}</p> --}}
-    {{-- <div>
+{{-- <p>{{ $msg2 }}</p> --}}
+{{-- <div>
         <h1>Blade/Index</h1>
         @isset($msg)
             <p>こんにちは、{{ $msg }}さん</p>
@@ -41,7 +41,7 @@
         </ol>
     </div>
     <div> --}}
-    {{-- <p>&#64;forディレクティブの例</p>
+{{-- <p>&#64;forディレクティブの例</p>
         <ol>
             @for ($i = 1; $i < 100; $i++)
                 @if ($i % 2 == 1)
@@ -53,8 +53,8 @@
                 @endif
             @endfor
         </ol> --}}
-    {{-- </div> --}}
-    {{-- <div>
+{{-- </div> --}}
+{{-- <div>
         <p>&#64;forディレクティブの例</p>
         <ol>
             @foreach ($data as $item)
@@ -70,7 +70,7 @@
             @endforeach
         </ol>
     </div> --}}
-    <div>
+{{-- <div>
         <h1>Blade</h1>
         <p>&#64;whileディレクティブの例</p>
         <ol>
@@ -91,7 +91,58 @@
             <input type="text" name='msg'>
             <input type="submit">
         </form>
-    </div>
-</body>
+    </div> --}}
+{{-- </body>
 
-</html>
+</html> --}}
+
+@extends('layouts.helloapp')
+@section('title', 'Index')
+@section('menubar')
+    @parent
+    インデックスページ
+@endsection
+
+{{-- @section('content')
+    <p>ここが本文のコンテンツです</p>
+    <p>必要なだけ記述できます</p>
+
+    @component('components.message')
+        @slot('msg_title')
+            CAUTION!
+        @endslot
+        @slot('msg_content')
+            これはメッセージの表示です
+        @endslot
+    @endcomponent
+@endsection
+@section('content')
+    <p>ここが本文のコンテンツです</p>
+    <p>必要なだけ記述できます</p>
+
+    @component('components.message')
+        @slot('msg_title')
+            CAUTION!
+        @endslot
+        @slot('msg_content')
+            これはメッセージの表示です
+        @endslot
+    @endcomponent
+@endsection --}}
+{{-- @section('content')
+    <p>ここが本文のコンテンツです</p>
+    <p>必要なだけ記述できます</p>
+
+    @include('components.message', ['msg_title' => 'ok', 'msg_content' => 'サブビューです'])
+@endsection --}}
+
+@section('content')
+    <p>ここが本文のコンテンツです</p>
+    <ul>
+        @each ('components.item', $data, 'item')
+    </ul>
+@endsection
+
+@section('footer')
+    copyright 2023 jun.
+@endsection

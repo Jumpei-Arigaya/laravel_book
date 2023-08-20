@@ -23,7 +23,9 @@ class HelloController extends Controller
             ['name' => 'suzuki', 'mail' => 'suzuki@test.com'],
         ];
 
-        return view('hello.index', ['data' => $data3]);
+        $data4 = "Hello!!!!";
+
+        return view('hello.index', ['message' => $data4]);
     }
 
     public function post(Request $request)

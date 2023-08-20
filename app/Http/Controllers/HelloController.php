@@ -6,22 +6,25 @@ use Illuminate\Http\Request;
 
 class HelloController extends Controller
 {
-    public function index ($id='noname', $pass='unknown') {
-        return '<html>
-        <head>
-        <title>Hello/Index</title>
-        <style>
-        body {font-size:16pt; color:#999; }
-        h1 { font-size:100pt; text-align:right; color:#f6f6f6;
-        margin:-50px 0px -100px 0px; }
-        </style>
-        </head>
-        
-        <body>
-            <h1>Index</h1>
-    <p>{$id}</p>
-   
-        
-        </html>';
+    public function index(Request $request)
+    {
+        $data = [
+            // 'msg1' => 'これはコントローラから渡されたメッセージです',
+            // 'msg2' => 'これはコントローラから渡されてBladeを使用して表示しているメッセージです',
+            // 'msg' => '名前を入力してください',
+            // 'id' => $request->id
+        ];
+
+        $data2 = ['one', 'two', 'three', 'four', 'five'];
+        return view('hello.index', ['data' => $data2]);
+    }
+
+    public function post(Request $request)
+    {
+        // $msg = $request->msg;
+        // $data = [
+        //     'msg' => 'こんにちは' . $msg . 'さん！！'
+        // ];
+        return view('hello.index', ['msg' => $request->msg]);
     }
 }

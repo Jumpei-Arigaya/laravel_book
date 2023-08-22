@@ -25,7 +25,7 @@ class HelloController extends Controller
 
         $data4 = "Hello!!!!";
 
-        return view('hello.index', ['message' => $data4]);
+        return view('hello.index', ['data' => $request->data]);
     }
 
     public function post(Request $request)
@@ -34,6 +34,6 @@ class HelloController extends Controller
         // $data = [
         //     'msg' => 'こんにちは' . $msg . 'さん！！'
         // ];
-        return view('hello.index', ['msg' => $request->msg]);
+        return view('hello.index');
     }
 }

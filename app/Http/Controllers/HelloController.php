@@ -25,7 +25,7 @@ class HelloController extends Controller
 
         $data4 = "Hello!!!!";
 
-        return view('hello.index', ['data' => $request->data]);
+        return view('hello.index', ['msg' => 'フォームを入力：']);
     }
 
     public function post(Request $request)
@@ -34,6 +34,14 @@ class HelloController extends Controller
         // $data = [
         //     'msg' => 'こんにちは' . $msg . 'さん！！'
         // ];
-        return view('hello.index');
+
+        $validate_rule = [
+            'name' => 'required',
+            'mail' => 'email',
+            'age' => 'numeric|between:0,150',
+        ];
+        $this->validate($request, $validate_rule);
+
+        return view('hello.index', ['msg' => '正しく入力されました！']);
     }
 }

@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HelloRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HelloController extends Controller
 {
     public function index(Request $request)
     {
         $data = [
-            // 'msg1' => 'これはコントローラから渡されたメッセージです',
-            // 'msg2' => 'これはコントローラから渡されてBladeを使用して表示しているメッセージです',
-            // 'msg' => '名前を入力してください',
-            // 'id' => $request->id
+            'msg1' => 'これはコントローラから渡されたメッセージです',
+            'msg2' => 'これはコントローラから渡されてBladeを使用して表示しているメッセージです',
+            'msg' => '名前を入力してください',
+            'id' => $request->id
         ];
 
         $data2 = ['one', 'two', 'three', 'four', 'five'];
@@ -26,7 +27,18 @@ class HelloController extends Controller
 
         $data4 = "Hello!!!!";
 
-        return view('hello.index', ['msg' => 'フォームを入力：']);
+        // $validator = Validator::make($request->query(), [
+        //     'id' => 'required',
+        //     'pass' => 'required'
+        // ]);
+
+        // if ($validator->fails()) {
+        //     $msg = 'クエリに問題があります';
+        // } else {
+        //     $msg = 'ID/PASSを受け付けました。フォームを入力してください';
+        // }
+
+        return view('hello.index', ['msg' => 'フォームを入力してください']);
     }
 
     public function post(HelloRequest $request)
@@ -42,6 +54,33 @@ class HelloController extends Controller
         //     'age' => 'numeric|between:0,150',
         // ];
         // $this->validate($request, $validate_rule);
+
+        $rules = [
+            'name' => 'required',
+            'mail' => 'email',
+            'age' => 'numeric|between:0,150',
+        ];
+
+        $messages = [
+            'name.required' => '名前は必ず入力してください',
+            'mail.email' => 'メールアドレスが必要です',
+            'age.between' => '年齢は0から150の間で入力してください',
+            'age.numeric' => '年齢は整数で入力してください',
+        ];
+
+        // $validator = Validator::make($request->all(), $rules, $messages);
+
+        // $validator->sometimes('age', 'min:0', function ($input) {
+        //     return is_numeric($input->age);
+        // });
+
+        // $validator->sometimes('age', 'max:200', function ($input) {
+        //     return is_numeric($input->age);
+        // });
+
+        // if ($validator->fails()) {
+        //     return redirect('/hello')->withErrors($validator)->withInput();
+        // }
 
         return view('hello.index', ['msg' => '正しく入力されました！']);
     }

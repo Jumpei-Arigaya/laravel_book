@@ -222,7 +222,7 @@
 </form>
 @endsection --}}
 
-@section('content')
+{{-- @section('content')
     <p>{{ $msg }}</p>
     {{ $errors->first('msg') }}
     @if (count($errors) > 0)
@@ -248,6 +248,26 @@
         </table>
     </form>
 @endsection
+ --}}
+
+@section('content')
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>Mail</th>
+            <th>Age</th>
+        </tr>
+        @foreach ($items as $item)
+            <tr>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->mail }}</td>
+                <td>{{ $item->age }}</td>
+            </tr>
+        @endforeach
+    @endsection
+</table>
 
 @section('footer')
     copyright 2023 jun.

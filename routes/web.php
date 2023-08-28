@@ -23,3 +23,9 @@ Route::get('/', function () {
 Route::get('hello', [HelloController::class, 'index'])
     ->middleware('helo');
 Route::post('hello', [HelloController::class, 'post']);
+Route::get('hello/add', [HelloController::class, 'add']);
+Route::post('hello/add', [HelloController::class, 'create']);
+Route::get('hello/edit', [HelloController::class, 'edit']);
+Route::post('hello/edit', [HelloController::class, 'update']);
+Route::get('hello/del', [HelloController::class, 'delete']);
+Route::post('hello/del', [HelloController::class, 'remove']);

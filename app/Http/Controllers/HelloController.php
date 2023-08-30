@@ -126,18 +126,23 @@ class HelloController extends Controller
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::insert(
-            'insert into people (name, mail, age) values (:name, :mail, :age)',
-            $params
-        );
+
+        // DB::insert(
+        //     'insert into people (name, mail, age) values (:name, :mail, :age)',
+        //     $params
+        // );
+
+        DB::table('people')->insert($params);
+
         return redirect('/hello');
     }
 
     public function edit(Request $request)
     {
-        $params = ['id' => $request->id];
-        $items = DB::select('select * from people where id = :id', $params);
-        return view('hello.edit', ['form' => $items[0]]);
+        // $params = ['id' => $request->id];
+        // $items = DB::select('select * from people where id = :id', $params);
+        $item = DB::table('people')->where('id', $request->id)->first();
+        return view('hello.edit', ['form' => $item]);
     }
 
     public function update(Request $request)
@@ -148,21 +153,24 @@ class HelloController extends Controller
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $params);
+        // DB::update('update people set name = :name, mail = :mail, age = :age where id = :id', $params);
+        DB::table('people')->where('id', $request->id)->update($params);
         return redirect('/hello');
     }
 
     public function delete(Request $request)
     {
-        $params = ['id' => $request->id];
-        $items = DB::select('select * from people where id = :id', $params);
-        return view('hello.del', ['form' => $items[0]]);
+        // $params = ['id' => $request->id];
+        // $items = DB::select('select * from people where id = :id', $params);
+        $item = DB::table('people')->where('id', $request->id)->first();
+        return view('hello.del', ['form' => $item]);
     }
 
     public function remove(Request $request)
     {
         $params = ['id' => $request->id];
-        DB::delete('delete from people where id = :id', $params);
+        // DB::delete('delete from people where id = :id', $params);
+        DB::table('people')->where('id', $request->id)->delete();
         return redirect('/hello');
     }
 
@@ -170,10 +178,11 @@ class HelloController extends Controller
     {
         // $name = $request->name;
         // $items = DB::table('people')->where('name', 'like', '%' . $name . '%')->orWhere('mail', 'like', '%' . $name . '%')->get();
-        $min = $request->min;
-        $max = $request->max;
+        // $min = $request->min;
+        // $max = $request->max;
         // $items = DB::table('people')->whereRaw('age >= ? and age <= ?', [$min, $max])->get();
-        $items = DB::table('people')->orderBy('age', 'desc')->get();
+        $page = $request->page;
+        $items = DB::table('people')->offset($page * 3)->limit(1)->get();
         return view('hello.show', ['items' => $items]);
     }
 }

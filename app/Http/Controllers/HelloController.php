@@ -109,7 +109,7 @@ class HelloController extends Controller
         // $response->cookie('msg', $msg, 100);
         // return $response;
 
-        $items = DB::select('select * from people');
+        $items = DB::table('people')->get();
 
         return view('hello.index', ['items' => $items]);
     }
@@ -164,5 +164,16 @@ class HelloController extends Controller
         $params = ['id' => $request->id];
         DB::delete('delete from people where id = :id', $params);
         return redirect('/hello');
+    }
+
+    public function show(Request $request)
+    {
+        // $name = $request->name;
+        // $items = DB::table('people')->where('name', 'like', '%' . $name . '%')->orWhere('mail', 'like', '%' . $name . '%')->get();
+        $min = $request->min;
+        $max = $request->max;
+        // $items = DB::table('people')->whereRaw('age >= ? and age <= ?', [$min, $max])->get();
+        $items = DB::table('people')->orderBy('age', 'desc')->get();
+        return view('hello.show', ['items' => $items]);
     }
 }

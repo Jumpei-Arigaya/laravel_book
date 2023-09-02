@@ -21,5 +21,5 @@
 @endsection
 
 @section('footer')
-    copyright 2020 tuyano.
+    copyright 2023 jun.
 @endsection

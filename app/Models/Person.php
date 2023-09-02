@@ -48,8 +48,8 @@ class Person extends Model
         static::addGlobalScope(new ScopePerson);
     }
 
-    public function board()
+    public function boards()
     {
-        return $this->hasOne('App\Models\Board');
+        return $this->hasMany('App\Models\Board');
     }
 }

@@ -52,7 +52,11 @@ class HelloController extends Controller
         //     $items = DB::select('select * from people');
         // }
 
-        $items = DB::select('select * from people');
+        // $items = DB::select('select * from people');
+
+        $sort = $request->sort;
+        $items = DB::table('people')->orderBy($sort, 'asc')->simplePaginate(5);
+
 
         return view('hello.index', ['items' => $items]);
     }

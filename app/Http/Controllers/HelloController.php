@@ -185,4 +185,9 @@ class HelloController extends Controller
         $items = DB::table('people')->offset($page * 3)->limit(1)->get();
         return view('hello.show', ['items' => $items]);
     }
+
+    public function rest(Request $request)
+    {
+        return view('hello.rest');
+    }
 }

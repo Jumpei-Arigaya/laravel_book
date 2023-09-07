@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HelloRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -54,9 +55,10 @@ class HelloController extends Controller
 
         // $items = DB::select('select * from people');
 
+        $user = Auth::user();
         $sort = $request->sort;
         $items = DB::table('people')->orderBy($sort, 'asc')->paginate(5);
-        $param = ['items' => $items, 'sort' => $sort];
+        $param = ['items' => $items, 'sort' => $sort, 'user' => $user];
         return view('hello.index', $param);
     }
 

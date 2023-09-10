@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('hello', [HelloController::class, 'index'])
-    ->middleware('helo');
+    ->middleware('auth');
 Route::post('hello', [HelloController::class, 'post']);
 Route::get('hello/add', [HelloController::class, 'add']);
 Route::post('hello/add', [HelloController::class, 'create']);
@@ -49,6 +49,8 @@ Route::resource('rest', RestappControler::class);
 Route::get('hello/rest', [HelloController::class, 'rest']);
 Route::get('hello/session', [HelloController::class, 'ses_get']);
 Route::post('hello/session', [HelloController::class, 'ses_put']);
+Route::get('hello/auth', [HelloController::class, 'getAuth']);
+Route::post('hello/auth', [HelloController::class, 'postAuth']);
 
 Auth::routes();
 
